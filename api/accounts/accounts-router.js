@@ -1,6 +1,5 @@
 const router = require('express').Router()
 const md = require('./accounts-middleware')
-const db = require('../../data/db-config')
 const Account = require('./accounts-model')
 
 
@@ -17,7 +16,12 @@ router.get('/', async (req, res, next) => {
 
 
 router.get('/:id', md.checkAccountId, (req, res, next) => { 
+  try {
     res.json(req.account)
+  } catch (err){
+    next(err)
+  }
+    
 })
 
 
